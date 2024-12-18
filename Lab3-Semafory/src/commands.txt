@@ -1,0 +1,4 @@
+gcc -o run_warehouse run_warehouse.c -lrt -pthread
+
+watch -n 1 cat warehouse.txt
+tail -f producer_logs/p0_log.txt
