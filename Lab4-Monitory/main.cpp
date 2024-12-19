@@ -23,13 +23,23 @@ public:
         enter();
         int content = read_content();
 
+        std::ofstream file(pd_log, std::ios::app);
+        file << "Wants to store " + std::to_string(amount) + "\n";
+        file.close();
+
         while (content + amount > k) {
             wait(not_full);
+            content = read_content();
         }
         write_content(content + amount);
 
+        file.open(pd_log, std::ios::app);
+        file << "Stored " + std::to_string(amount) + "\n";
+        file.close();
+
+
         signal(not_empty);
-        leave;
+        leave();
     };
 
     void take(int amount, std::string cn_log)
@@ -37,13 +47,22 @@ public:
         enter();
         int content = read_content();
 
+        std::ofstream file(cn_log, std::ios::app);
+        file << "Wants to take " + std::to_string(amount) + "\n";
+        file.close();
+
         while (content < amount) {
             wait(not_empty);
+            content = read_content();
         }
-        write_content(content + amount);
+        write_content(content - amount);
+        
+        file.open(cn_log, std::ios::app);
+        file << "Took " + std::to_string(amount) + "\n";
+        file.close();
 
         signal(not_full);
-        leave;
+        leave();
     };
 
 private:
@@ -66,6 +85,7 @@ private:
         file << std::to_string(content) << std::endl;
         file.close();
     }
+
 };
 
 // <================================================>
@@ -95,7 +115,7 @@ public:
         {
             int produced = dist(gen);
             sleep(1);
-            wh->store(produced);
+            wh->store(produced, log_path);
         }
     }
 
@@ -133,7 +153,7 @@ public:
         {
             int consumed = dist(gen);
             sleep(1);
-            wh->store(-consumed);
+            wh->take(consumed, log_path);
         }
     }
 
@@ -152,11 +172,11 @@ int main(int argc, char *argv[])
 {
     int k = 20;
     int n = 9;
-    int a = 10;
-    int b = 20;
+    int a = 1;
+    int b = 5;
     int m = 1;
-    int c = 17;
-    int d = 20;
+    int c = 1;
+    int d = 5;
 
     if (argc == 8)
     {
@@ -171,15 +191,13 @@ int main(int argc, char *argv[])
 
     Warehouse wh = Warehouse(k, "warehouse.txt");
     
-    std::vector<std::thread> threads;
-
     for (int i = 0; i < n; i++)
     {
         Producer pd = Producer(i, a, b);
         std::thread(&Producer::run, pd, &wh).detach();
     }
 
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < m; i++)
     {
         Consumer cn = Consumer(i, c, d);
         std::thread(&Consumer::run, cn, &wh).detach();
