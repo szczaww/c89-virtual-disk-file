@@ -1,7 +1,5 @@
 #include "monitor.h"
 #include <thread>
-#include <iomanip>
-
 #include <random>
 #include <string>
 #include <iostream>
@@ -105,15 +103,9 @@ public:
 
     void run(Warehouse *wh)
     {
-
-        // Init random generator
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_int_distribution<> dist(a, b);
-
         while (true)
         {
-            int produced = dist(gen);
+            int produced = rand() % b + a;
             sleep(1);
             wh->store(produced, log_path);
         }
@@ -144,14 +136,9 @@ public:
     void run(Warehouse *wh)
     {
 
-        // Init random generator
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_int_distribution<> dist(c, d);
-
         while (true)
         {
-            int consumed = dist(gen);
+            int consumed = rand() % d + c;
             sleep(1);
             wh->take(consumed, log_path);
         }
