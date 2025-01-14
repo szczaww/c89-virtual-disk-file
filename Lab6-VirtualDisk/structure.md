@@ -1,6 +1,6 @@
 # Struktura
 ### 1. Nagłówek dysku
-Rozmiar łączny: ***28 bajty***
+Rozmiar łączny: ***48 bajty***
 - **4 bajty** Rozmiar dysku - y
 - **4 bajty** Rozmiar bloku - x
 - **4 bajty** Offset bitmapy i-node'ów
