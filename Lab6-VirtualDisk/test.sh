@@ -5,7 +5,7 @@ LONG_FILE="012345678901234567890123456789012345678901234567890123456789012345678
 DISKFILE="diskfile.bin" 
 SIZE=11100
 SHORT_SLEEP=1
-LONG_SLEEP=4
+LONG_SLEEP=3
 
 # Creation & deletion
     echo "Creating&deleting diskfile..."
@@ -42,86 +42,86 @@ LONG_SLEEP=4
         read
         clear && clear
     
-#     echo "Adding hidden files..."
-#     sleep $SHORT_SLEEP
-#         ./main -a   $DISKFILE $HIDDEN_FILE  # Copy file
-#         sleep $SHORT_SLEEP
-#         ./main -ls  $DISKFILE
-#         ./main -inm $DISKFILE               # Show inode bitmap
-#         ./main -dbm $DISKFILE               # Show block bitmap
-#         sleep $SHORT_SLEEP
+    echo "Adding hidden files..."
+    sleep $SHORT_SLEEP
+        ./main -a   $DISKFILE $HIDDEN_FILE  # Copy file
+        sleep $SHORT_SLEEP
+        ./main -ls  $DISKFILE
+        ./main -inm $DISKFILE               # Show inode bitmap
+        ./main -dbm $DISKFILE               # Show block bitmap
+        sleep $SHORT_SLEEP
         
-#         echo ""
-#         echo "Press Enter to continue..."
-#         read
-#         clear && clear
+        echo ""
+        echo "Press Enter to continue..."
+        read
+        clear && clear
 
-#     echo "Listing ALL files..."
-#     sleep $SHORT_SLEEP
+    echo "Listing ALL files..."
+    sleep $SHORT_SLEEP
 
-#         ./main -lsh $DISKFILE               # List
-#         sleep $SHORT_SLEEP
+        ./main -lsh $DISKFILE               # List
+        sleep $SHORT_SLEEP
 
-#         echo ""
-#         echo "Press Enter to continue..."
-#         read
-#         clear && clear
+        echo ""
+        echo "Press Enter to continue..."
+        read
+        clear && clear
 
-#     echo "Removing file.."
-#     sleep $SHORT_SLEEP
-#         ./main -r $DISKFILE $NORMAL_FILE  # Copy file
-#         sleep $SHORT_SLEEP
-#         ./main -ls  $DISKFILE
-#         ./main -inm $DISKFILE               # Show inode bitmap
-#         ./main -dbm $DISKFILE               # Show block bitmap
-#         sleep $SHORT_SLEEP
+    echo "Removing file.."
+    sleep $SHORT_SLEEP
+        ./main -r $DISKFILE $NORMAL_FILE  # Copy file
+        sleep $SHORT_SLEEP
+        ./main -ls  $DISKFILE
+        ./main -inm $DISKFILE               # Show inode bitmap
+        ./main -dbm $DISKFILE               # Show block bitmap
+        sleep $SHORT_SLEEP
         
-#         echo ""
-#         echo "Press Enter to continue..."
-#         read
-#         clear && clear
+        echo ""
+        echo "Press Enter to continue..."
+        read
+        clear && clear
 
-#     echo "Adding file with long name (>64 bytes)"
-#     echo "Interpretation: File is small but the name takes up extra data blocks."
-#     echo "One block hole now occupied by new data."
-#     sleep $SHORT_SLEEP
+    echo "Adding file with long name (>64 bytes)"
+    echo "Interpretation: File is small but the name takes up extra data blocks."
+    echo "One block hole now occupied by new data."
+    sleep $SHORT_SLEEP
 
-#         ./main -a   $DISKFILE $LONG_FILE    # Copy file
-#         sleep $SHORT_SLEEP
-#         ./main -ls  $DISKFILE
-#         ./main -inm $DISKFILE               # Show inode bitmap
-#         ./main -dbm $DISKFILE               # Show block bitmap
-#         sleep $SHORT_SLEEP
+        ./main -a   $DISKFILE $LONG_FILE    # Copy file
+        sleep $SHORT_SLEEP
+        ./main -ls  $DISKFILE
+        ./main -inm $DISKFILE               # Show inode bitmap
+        ./main -dbm $DISKFILE               # Show block bitmap
+        sleep $SHORT_SLEEP
         
-#         echo ""
-#         echo "Press Enter to continue..."
-#         read
-#         clear && clear
+        echo ""
+        echo "Press Enter to continue..."
+        read
+        clear && clear
 
-# # Saving disk to file
-#     echo "Removing old & creating new diskfile..."
-#     sleep $SHORT_SLEEP
+# Saving disk to file
+    echo "Removing old & creating new diskfile..."
+    sleep $SHORT_SLEEP
 
-#         ./main -d $DISKFILE $SIZE
-#         ./main -c $DISKFILE $SIZE 
-#         sleep $SHORT_SLEEP
+        ./main -d $DISKFILE $SIZE
+        ./main -c $DISKFILE $SIZE 
+        sleep $SHORT_SLEEP
 
-#         echo ""
-#         echo "Press Enter to continue..."
-#         read
-#         clear && clear
+        echo ""
+        echo "Press Enter to continue..."
+        read
+        clear && clear
     
-#     echo "Adding file..."
-#     sleep $SHORT_SLEEP
+    echo "Adding file..."
+    sleep $SHORT_SLEEP
 
-#         ./main -a $DISKFILE $NORMAL_FILE
-#         ./main -lsh $DISKFILE               # List
-#         sleep $SHORT_SLEEP
+        ./main -a $DISKFILE $NORMAL_FILE
+        ./main -lsh $DISKFILE               # List
+        sleep $SHORT_SLEEP
         
-#         echo ""
-#         echo "Press Enter to continue..."
-#         read
-#         clear && clear
+        echo ""
+        echo "Press Enter to continue..."
+        read
+        clear && clear
     
     echo "File extracting test"
     sleep $SHORT_SLEEP
