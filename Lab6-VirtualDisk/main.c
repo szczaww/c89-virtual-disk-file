@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <libgen.h>
+
 #include <unistd.h>
 
 #define SUPERBLOCK_SIZE 20
@@ -9,9 +9,9 @@
 #define BLOCK_SIZE      1024
 #define DATA_SIZE       1020
 
-// <================================================>
-//                      Objects
-// <================================================>
+/* <================================================> */
+/*                      Objects                       */
+/* <================================================> */
 
 typedef struct {
     unsigned int disk_size;             /* 4 bytes */
@@ -43,9 +43,9 @@ typedef struct {
     unsigned char *block_bitmap;
 } Diskfile;
 
-// <===========================================================================>
-//                              Constructors
-// <===========================================================================>
+/* <===========================================================================> */
+/*                              Constructors                                     */
+/* <===========================================================================> */
 
 Superblock init_superblock(unsigned int size, unsigned int block_nb ) {
     Superblock sb;
@@ -83,7 +83,7 @@ Block* init_blocks(unsigned int block_nb) {
     unsigned int i;
     Block* blocks = (Block*)malloc(block_nb * sizeof(Block));
     for (i = 0; i < block_nb; ++i) {
-        strcpy(blocks[i].data, "");
+        memset(blocks[i].data, 0, DATA_SIZE);
         blocks[i].next_offset = 0;
     }
     return blocks;
@@ -111,9 +111,9 @@ void cleanup(Diskfile* diskfile) {
     free(diskfile);
 }
 
-// <===========================================================================>
-//                          Read&save operations
-// <===========================================================================>
+/* <===========================================================================> */
+/*                          Read&save operations                                 */
+/* <===========================================================================> */
 
 void save_to_file(Diskfile* diskfile, char* path) {
     FILE *file = fopen(path, "wb");
@@ -143,15 +143,15 @@ unsigned int read_diskfile_size(char *path) {
     return superblock.disk_size;
 }
 
-// <===========================================================================>
-//                            Other
-// <===========================================================================>
+/* <===========================================================================> */
+/*                            Other                                              */
+/* <===========================================================================> */
 
 unsigned int* free_indeces(Diskfile* diskfile, unsigned char* bitmap) {
     unsigned int i, j;
     unsigned int free_count = 0;
     unsigned int* free_indeces = (unsigned int*)malloc(diskfile->block_nb * sizeof(unsigned int));
-    // unsigned int* free_indeces = (unsigned int*)malloc(total_indeces * sizeof(unsigned int));
+    /* unsigned int* free_indeces = (unsigned int*)malloc(total_indeces * sizeof(unsigned int)); */
 
     if (free_indeces == NULL) {
         perror("Memory allocation failed");
@@ -180,9 +180,9 @@ unsigned int offset_to_index(Diskfile* diskfile, unsigned int offset) {
     return index;
 }
 
-// <===========================================================================>
-//                            Adding&removing files
-// <===========================================================================>
+/* <===========================================================================> */
+/*                            Adding&removing files                              */
+/* <===========================================================================> */
 
 void add_file(Diskfile* diskfile, char *path) {
     int i=0;
@@ -191,8 +191,8 @@ void add_file(Diskfile* diskfile, char *path) {
     unsigned int* free_inodes_index = free_indeces(diskfile, diskfile->inode_bitmap);
     unsigned int first_inode_index = free_inodes_index[0];
     free(free_inodes_index);
-    unsigned int* free_blocks_index = free_indeces(diskfile, diskfile->block_bitmap);
-    // free(free_blocks_index );
+    unsigned* free_blocks_index = free_indeces(diskfile, diskfile->block_bitmap);
+    /* free(free_blocks_index ); */
 
     FILE *file;
     unsigned int file_offset;
@@ -217,7 +217,7 @@ void add_file(Diskfile* diskfile, char *path) {
     file_in_blocks = (file_in_bytes + DATA_SIZE - 1) / DATA_SIZE;
 
     /* Get filename size*/
-    filename = basename(path);
+    filename = path;
     filename_in_bytes = (unsigned int)strlen(filename);
     if (filename_in_bytes <= 64) {
         filename_in_blocks = 0;
@@ -415,9 +415,9 @@ void extract_file(Diskfile* diskfile, unsigned char* filename) {
 }
 
 
-// <===========================================================================>
-//                            Visualisasions
-// <===========================================================================>
+/* <===========================================================================> */
+/*                            Visualisasions                                     */
+/* <===========================================================================> */
 
 void list_files(Diskfile* diskfile, unsigned int list_hidden) {
     unsigned int i;
@@ -550,31 +550,32 @@ void printHelp() {
     printf("    -lsh <diskname>             - List normal + hidden files\n");
     printf("    -h                          - Print help message\n");
 }
-// <================================================>
-//                   Main program
-// <================================================>
+/* <================================================> */
+/*                   Main program                     */
+/* <================================================> */
 
 int main(int argc, char *argv[]) {
     Diskfile* diskfile = NULL;
     char *diskname, *filename;
     unsigned int disksize;
+    /*
+    diskname = "diskfile.bin";
+    filename = "normal_file.txt";
 
-    // diskname = "diskfile.bin";
-    // filename = "normal_file.txt";
+    diskfile = init_diskfile(11100);
+    show_inode_bitmap(diskfile);
+    save_to_file(diskfile, diskname);
 
-    // diskfile = init_diskfile(11100);
-    // show_inode_bitmap(diskfile);
-    // save_to_file(diskfile, diskname);
-
-    // disksize = read_diskfile_size(diskname);
-    // diskfile = init_diskfile(disksize);
-    // read_from_file(diskfile, diskname);
-    // show_inode_bitmap(diskfile);
-    // add_file(diskfile, filename);
-    // list_files(diskfile, 0);
-    // show_inode_bitmap(diskfile);
-    // save_to_file(diskfile, diskname);
-    // return 0;
+    disksize = read_diskfile_size(diskname);
+    diskfile = init_diskfile(disksize);
+    read_from_file(diskfile, diskname);
+    show_inode_bitmap(diskfile);
+    add_file(diskfile, filename);
+    list_files(diskfile, 0);
+    show_inode_bitmap(diskfile);
+    save_to_file(diskfile, diskname);
+    return 0;
+    */
 
     if (argc<2) {
         printf("Error: Invalid command.\n");
