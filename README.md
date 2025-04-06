@@ -11,8 +11,6 @@
 <!-- ABOUT THE PROJECT -->
 ## About
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
 File system manager written from scratch in C89 for use with Minix/Linux operating systems. Proof of concept that supports simple operations like:
 - create & delete diskfiles
 - write to & extract from
@@ -23,6 +21,8 @@ Made as a part of Operating System course at Warsaw University of Technology.
 
 ## Installation
 
+### Linux
+
 1. Clone the repo
    ```
    git clone https://github.com/szczaww/c89-virtual-disk-file
@@ -32,6 +32,22 @@ Made as a part of Operating System course at Warsaw University of Technology.
    make
    ```
 3. Run a demo bash script (Optional) 
+   ```
+   make demo
+   ```
+
+### Minix
+
+1. Clone the repo
+   ```
+   git clone https://github.com/szczaww/c89-virtual-disk-file
+   ```
+2. Transfer ./minix/usr contents into usr/ directory under your minix virtual machine
+3. Build the project
+   ```
+   make
+   ```
+4. Run a demo bash script (Optional) 
    ```
    make demo
    ```
@@ -79,17 +95,12 @@ Made as a part of Operating System course at Warsaw University of Technology.
     `./program -h`  
     This prints the help message.
 
-<!-- ACKNOWLEDGMENTS -->
-## Credits
-
-* [Font Awesome](https://fontawesome.com)
-
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
 [stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
+[license-url]: www.linkedin.com/in/kamil-szczawinski
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew
 [product-screenshot]: images/screenshot.png
