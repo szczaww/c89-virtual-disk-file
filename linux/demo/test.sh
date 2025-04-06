@@ -1,20 +1,26 @@
 #!/bin/bash
-NORMAL_FILE="normal_file.txt"
-HIDDEN_FILE=".hidden_file.txt"
-LONG_FILE="01234567890123456789012345678901234567890123456789012345678901234567890123456789.txt"
-DISKFILE="diskfile.bin" 
+NORMAL_FILE="./linux/demo/normal-file.txt"
+HIDDEN_FILE="./linux/demo/normal-file.txt"
+LONG_FILE="./linux/demo/looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong-name-file.txt"
+
+DISKFILE="./build/diskfile.bin" 
+BUILT_FILE="./build/main"
+
 SIZE=11100
 SHORT_SLEEP=1
 LONG_SLEEP=3
+
 
 # Creation & deletion
     echo "Creating&deleting diskfile..."
     sleep $SHORT_SLEEP
 
-        ./main -c $DISKFILE $SIZE 
+        echo $(pwd)
+        echo $(ls)
+        $BUILT_FILE -c $DISKFILE $SIZE 
         sleep $LONG_SLEEP
 
-        ./main -d $DISKFILE $SIZE
+        $BUILT_FILE -d $DISKFILE $SIZE
         sleep $SHORT_SLEEP
         
         echo ""
@@ -26,15 +32,15 @@ LONG_SLEEP=3
     echo "Adding normal files..."
     sleep $SHORT_SLEEP
 
-        ./main -c $DISKFILE $SIZE            # Create disk
+        $BUILT_FILE -c $DISKFILE $SIZE            # Create disk
         sleep $SHORT_SLEEP
         
         # Normal files
-        ./main -a   $DISKFILE $NORMAL_FILE  # Copy file
+        $BUILT_FILE -a   $DISKFILE $NORMAL_FILE  # Copy file
         sleep $SHORT_SLEEP
-        ./main -ls  $DISKFILE
-        ./main -inm $DISKFILE               # Show inode bitmap
-        ./main -dbm $DISKFILE               # Show block bitmap
+        $BUILT_FILE -ls  $DISKFILE
+        $BUILT_FILE -inm $DISKFILE               # Show inode bitmap
+        $BUILT_FILE -dbm $DISKFILE               # Show block bitmap
         sleep $SHORT_SLEEP
 
         echo ""
@@ -44,11 +50,11 @@ LONG_SLEEP=3
     
     echo "Adding hidden files..."
     sleep $SHORT_SLEEP
-        ./main -a   $DISKFILE $HIDDEN_FILE  # Copy file
+        $BUILT_FILE -a   $DISKFILE $HIDDEN_FILE  # Copy file
         sleep $SHORT_SLEEP
-        ./main -ls  $DISKFILE
-        ./main -inm $DISKFILE               # Show inode bitmap
-        ./main -dbm $DISKFILE               # Show block bitmap
+        $BUILT_FILE -ls  $DISKFILE
+        $BUILT_FILE -inm $DISKFILE               # Show inode bitmap
+        $BUILT_FILE -dbm $DISKFILE               # Show block bitmap
         sleep $SHORT_SLEEP
         
         echo ""
@@ -59,7 +65,7 @@ LONG_SLEEP=3
     echo "Listing ALL files..."
     sleep $SHORT_SLEEP
 
-        ./main -lsh $DISKFILE               # List
+        $BUILT_FILE -lsh $DISKFILE               # List
         sleep $SHORT_SLEEP
 
         echo ""
@@ -69,11 +75,11 @@ LONG_SLEEP=3
 
     echo "Removing file.."
     sleep $SHORT_SLEEP
-        ./main -r $DISKFILE $NORMAL_FILE  # Copy file
+        $BUILT_FILE -r $DISKFILE $NORMAL_FILE  # Copy file
         sleep $SHORT_SLEEP
-        ./main -ls  $DISKFILE
-        ./main -inm $DISKFILE               # Show inode bitmap
-        ./main -dbm $DISKFILE               # Show block bitmap
+        $BUILT_FILE -ls  $DISKFILE
+        $BUILT_FILE -inm $DISKFILE               # Show inode bitmap
+        $BUILT_FILE -dbm $DISKFILE               # Show block bitmap
         sleep $SHORT_SLEEP
         
         echo ""
@@ -86,11 +92,11 @@ LONG_SLEEP=3
     echo "One block hole now occupied by new data."
     sleep $SHORT_SLEEP
 
-        ./main -a   $DISKFILE $LONG_FILE    # Copy file
+        $BUILT_FILE -a   $DISKFILE $LONG_FILE    # Copy file
         sleep $SHORT_SLEEP
-        ./main -ls  $DISKFILE
-        ./main -inm $DISKFILE               # Show inode bitmap
-        ./main -dbm $DISKFILE               # Show block bitmap
+        $BUILT_FILE -ls  $DISKFILE
+        $BUILT_FILE -inm $DISKFILE               # Show inode bitmap
+        $BUILT_FILE -dbm $DISKFILE               # Show block bitmap
         sleep $SHORT_SLEEP
         
         echo ""
@@ -102,8 +108,8 @@ LONG_SLEEP=3
     echo "Removing old & creating new diskfile..."
     sleep $SHORT_SLEEP
 
-        ./main -d $DISKFILE $SIZE
-        ./main -c $DISKFILE $SIZE 
+        $BUILT_FILE -d $DISKFILE $SIZE
+        $BUILT_FILE -c $DISKFILE $SIZE 
         sleep $SHORT_SLEEP
 
         echo ""
@@ -114,8 +120,8 @@ LONG_SLEEP=3
     echo "Adding file..."
     sleep $SHORT_SLEEP
 
-        ./main -a $DISKFILE $NORMAL_FILE
-        ./main -lsh $DISKFILE               # List
+        $BUILT_FILE -a $DISKFILE $NORMAL_FILE
+        $BUILT_FILE -lsh $DISKFILE               # List
         sleep $SHORT_SLEEP
         
         echo ""
@@ -135,7 +141,7 @@ LONG_SLEEP=3
         rm normal_file.txt
         read
 
-        ./main -e $DISKFILE $NORMAL_FILE
+        $BUILT_FILE -e $DISKFILE $NORMAL_FILE
         sleep $SHORT_SLEEP
 
         echo ""
@@ -144,7 +150,7 @@ LONG_SLEEP=3
         clear && clear
 
 echo "Tests finished."
-./main -d $DISKFILE
+$BUILT_FILE -d $DISKFILE
 sleep $SHORT_SLEEP
 
 
