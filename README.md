@@ -98,8 +98,9 @@ Made as a part of Operating System course at Warsaw University of Technology.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [stars-shield]: https://img.shields.io/github/stars/szczaww/c89-virtual-disk-file.svg?style=for-the-badge
-[stars-url]: https://github.com/szczaww/c89-virtual-disk-file
+[stars-url]: https://github.com/szczaww/c89-virtual-disk-file/stargazers
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
 [license-url]: www.linkedin.com/in/kamil-szczawinski
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: www.linkedin.com/in/kamil-szczawinski
+
